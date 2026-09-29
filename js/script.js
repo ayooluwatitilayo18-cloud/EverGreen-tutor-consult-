@@ -240,6 +240,7 @@ function uploadImage() {
     }
 
 }
+
 let savedImage = localStorage.getItem("profileImage");
 
 let profileImage = document.getElementById("profileImage");
@@ -683,7 +684,9 @@ const questionBankDetails = {
 
 let loggedInUser = localStorage.getItem("loggedInUser");
 
-if (!loggedInUser) {
+let isQuizPage = window.location.pathname.includes("quiz.html");
+
+if (isQuizPage && !loggedInUser) {
     alert("⚠️ Please login before taking a quiz.");
     window.location.href = "login.html";
 }
@@ -692,7 +695,7 @@ if (!loggedInUser) {
 
 let subject = localStorage.getItem("subject");
 
-if (!subject) {
+if (isQuizPage && !subject) {
     alert("⚠️ Please select a subject before starting a quiz.");
     window.location.href = "dashboard.html";
 }
@@ -915,144 +918,90 @@ function calculateScore() {
     let score = 0;
 
     for (let i = 0; i < questions.length; i++) {
-
         if (userAnswers[i] == questions[i].correct) {
             score++;
         }
-
     }
 
-    // Save the score
     localStorage.setItem("quizScore", score);
-
-    // Save total number of questions
     localStorage.setItem("quizTotal", questions.length);
 
-    // Go to result page
+    let percentage = questions.length
+        ? (score / questions.length) * 100
+        : 0;
+    let currentSubject = localStorage.getItem("subject");
+    let quizzes = Number(localStorage.getItem("quizTaken")) || 0;
+    let highestScore = Number(localStorage.getItem("averageScore")) || 0;
+
+    localStorage.setItem("quizTaken", quizzes + 1);
+    localStorage.setItem(
+        "averageScore",
+        Math.max(highestScore, percentage)
+    );
+
+    let completedSubjects =
+        JSON.parse(localStorage.getItem("completedSubjectList")) || [];
+    if (currentSubject && !completedSubjects.includes(currentSubject)) {
+        completedSubjects.push(currentSubject);
+    }
+    localStorage.setItem(
+        "completedSubjectList",
+        JSON.stringify(completedSubjects)
+    );
+    localStorage.setItem("completedSubjects", completedSubjects.length);
+
+    let status = percentage >= 50 ? "✅ PASS" : "❌ FAIL";
+    localStorage.setItem("score", score);
+    localStorage.setItem("percentage", percentage);
+    localStorage.setItem("status", status);
+
+    let quizResults =
+        JSON.parse(localStorage.getItem("quizResults")) || [];
+    quizResults.push({
+        subject: currentSubject,
+        score: percentage,
+        status: status
+    });
+    localStorage.setItem("quizResults", JSON.stringify(quizResults));
+
+    let leaderboard =
+        JSON.parse(localStorage.getItem("leaderboard")) || [];
+    leaderboard.push({
+        name: localStorage.getItem("fullname"),
+        subject: currentSubject,
+        score: percentage.toFixed(0)
+    });
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+
     window.location.href = "result.html";
 }
 
-let percentage = (score / questions.length) * 100;
-
-let quizzes =
-    Number(localStorage.getItem("quizTaken")) || 0;
-
-localStorage.setItem("quizTaken", quizzes + 1);
-
-let previousHighestScore =
-    Number(localStorage.getItem("averageScore")) || 0;
-
-let highestScore =
-    Math.max(previousHighestScore, percentage);
-
-localStorage.setItem("averageScore", highestScore);
-let completedSubjects =
-    JSON.parse(localStorage.getItem("completedSubjectList")) || [];
-
-let currentSubject =
-    localStorage.getItem("subject");
-
-if (!completedSubjects.includes(currentSubject)) {
-
-    completedSubjects.push(currentSubject);
-
-}
-
-localStorage.setItem(
-    "completedSubjectList",
-    JSON.stringify(completedSubjects)
-);
-
-localStorage.setItem(
-    "completedSubjects",
-    completedSubjects.length
-);
-
-let status = percentage >= 50
-    ? "✅ PASS"
-    : "❌ FAIL";
-
-localStorage.setItem("score", score);
-
-localStorage.setItem("percentage", percentage);
-
-localStorage.setItem("status", status);
-let quizResults =
-    JSON.parse(localStorage.getItem("quizResults")) || [];
-
-quizResults.push({
-
-    subject: localStorage.getItem("subject"),
-
-    score: percentage,
-
-    status: status
-
-});
-
-localStorage.setItem(
-    "quizResults",
-    JSON.stringify(quizResults)
-);
-let leaderboard =
-    JSON.parse(localStorage.getItem("leaderboard")) || [];
-
-leaderboard.push({
-
-    name: localStorage.getItem("fullname"),
-
-    subject: localStorage.getItem("subject"),
-
-    score: percentage.toFixed(0)
-
-});
-
-localStorage.setItem(
-    "leaderboard",
-    JSON.stringify(leaderboard)
-);
-
-window.location.href = "result.html";
-
-
-
 function finishExam() {
-    let studentName = localStorage.getItem("studentname");
-
     let confirmSubmit =
         confirm("Are you sure you want to submit your exam?");
 
     if (confirmSubmit) {
-
         calculateScore();
-
     }
-
 }
+
 if (document.getElementById("studentName")) {
-
     let name = localStorage.getItem("fullname");
-
     document.getElementById("studentName").innerHTML =
         "👋 Welcome, " + name;
-
 }
-function showMessage(text) {
 
+function showMessage(text) {
     let msg = document.getElementById("loginMessage");
 
     if (!msg) return;
 
     msg.innerHTML = text;
-
     msg.style.display = "block";
 
     setTimeout(function () {
-
         msg.style.display = "none";
-
     }, 3000);
-
 }
 
 function chooseSubject(subject) {
@@ -1070,6 +1019,7 @@ if (document.getElementById("subjectTitle")) {
     document.getElementById("subjectTitle").innerHTML =
         "📚 Subject: " + subject;
 
+}
 
 
     function getAdminQuestionBank() {
