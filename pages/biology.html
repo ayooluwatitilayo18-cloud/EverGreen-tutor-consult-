@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biology | EverGreen Tutor & Consult</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            EverGreen Tutor & Consult
+        </div>
+
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#">Biology</a></li>
+        </ul>
+
+    </nav>
+
+    <section class="subjects">
+
+        <h2>🧬 Biology</h2>
+
+        <div class="subject-container">
+
+            <div class="subject-card">
+                <h3>Lesson 1</h3>
+                <p>Introduction to Biology</p>
+                <button onclick="lesson1()">Start Lesson</button>
+            </div>
+
+            <div class="subject-card">
+                <h3>Lesson 2</h3>
+                <p>Living Things</p>
+                <button onclick="lesson2()">Start Lesson</button>
+            </div>
+
+            <div class="subject-card">
+                <h3>Lesson 3</h3>
+                <p>Cells</p>
+                <button onclick="lesson3()">Start Lesson</button>
+            </div>
+
+            <div class="subject-card">
+                <h3>Lesson 4</h3>
+                <p>Human Body Systems</p>
+                <button onclick="lesson4()">Start Lesson</button>
+            </div>
+            <div id="lessonBox">
+
+                <h2 id="lessonTitle">Choose a Lesson</h2>
+
+                <p id="lessonContent">
+                    Click any lesson above to begin.
+                </p>
+
+                <br>
+
+                <button onclick="previousLesson()">⬅ Previous Lesson</button>
+
+                <button onclick="nextLesson()">Next Lesson ➡</button>
+
+            </div>
+
+            <div style="text-align:center; margin:30px;">
+                <button onclick="chooseSubject('Biology')">
+                    📝 Take Biology Quiz
+                </button>
+            </div>
+
+            <script>
+                let currentLesson = 1;
+                function showLesson() {
+
+                    let title = document.getElementById("lessonTitle");
+                    let content = document.getElementById("lessonContent");
+
+                    if (currentLesson == 1) {
+
+                        title.innerHTML = "🧬 Lesson 1";
+
+                        content.innerHTML =
+                            "<b>Introduction to Biology</b><br><br>" +
+                            "Biology is the scientific study of living organisms and their interactions with the environment.";
+
+                    }
+
+                    else if (currentLesson == 2) {
+
+                        title.innerHTML = "🧬 Lesson 2";
+
+                        content.innerHTML =
+                            "<b>Living Things</b><br><br>" +
+                            "Living things carry out life processes.";
+
+                    }
+
+                    else if (currentLesson == 3) {
+
+                        title.innerHTML = "🧬 Lesson 3";
+
+                        content.innerHTML =
+                            "<b>Cells</b><br><br>" +
+                            "The cell is the basic structural and functional unit of life.";
+
+                    }
+
+                    else if (currentLesson == 4) {
+
+                        title.innerHTML = "🧬 Lesson 4";
+
+                        content.innerHTML =
+                            "<b>Human Body Systems</b><br><br>" +
+                            "Examples include the digestive system, respiratory system, circulatory system and nervous system.";
+
+                    }
+
+                }
+                function lesson1() {
+
+                    currentLesson = 1;
+
+                    document.getElementById("lessonBox").style.display = "block";
+
+                    showLesson();
+
+                }
+
+                function lesson2() {
+
+                    currentLesson = 2;
+
+                    document.getElementById("lessonBox").style.display = "block";
+
+                    showLesson();
+
+                }
+
+                function lesson3() {
+
+                    currentLesson = 3;
+
+                    document.getElementById("lessonBox").style.display = "block";
+
+                    showLesson();
+
+                }
+
+                function lesson4() {
+
+                    currentLesson = 4;
+
+                    document.getElementById("lessonBox").style.display = "block";
+
+                    showLesson();
+
+                }
+
+                function nextLesson() {
+
+                    if (currentLesson < 4) {
+
+                        currentLesson++;
+
+                        showLesson();
+
+                    }
+
+                }
+
+                function previousLesson() {
+
+                    if (currentLesson > 1) {
+
+                        currentLesson--;
+
+                        showLesson();
+
+                    }
+
+                }
+            </script>
+
+            <script src="../js/script.js"></script>
+
+</body>
+
+</html>

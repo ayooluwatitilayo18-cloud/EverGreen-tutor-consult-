@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EverGreen Tutor & Consult</title>
+
+    <link rel="stylesheet" href=".//css/style.css">
+
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+
+            EverGreen Tutor & Consult
+
+        </div>
+
+        <ul>
+
+            <li><a href="#">Home</a></li>
+
+            <li><a href="pages/dashboard.html">Dashboard</a></li>
+
+            <li><a href="pages/about.html">About</a></li>
+
+            <li><a href="#subjects">Subjects</a></li>
+
+            <li><a href="#contact">Contact</a></li>
+
+            <li id="accountLink"></li>
+
+        </ul>
+
+    </nav>
+
+
+    <div id="welcomeUser" style="text-align:center; padding:20px; font-size:24px; color:green; font-weight:bold;">
+    </div>
+
+    <section class="search-section">
+
+        <input type="text" id="search" placeholder="Search for a subject...">
+
+        <button onclick="searchSubject()">
+            Search
+        </button>
+
+        <p id="result"></p>
+
+    </section>
+
+    <div id="tutorialBox">
+
+        <h2 id="tutorialTitle"></h2>
+
+        <ul id="tutorialList"></ul>
+
+    </div>
+
+    <div id="lessonBox">
+
+        <h2 id="lessonTitle"></h2>
+
+        <p id="lessonContent"></p>
+
+    </div>
+
+    <div id="scoreBox">
+
+        <h2>Your Score</h2>
+
+        <p id="score">No quiz taken yet.</p>
+
+    </div>
+
+    <!-- Paste the Hero Section here -->
+
+    <section class="hero">
+
+        <div class="hero-text">
+
+            <h1>Welcome to EverGreen Tutor & Consult</h1>
+
+            <p>
+                We provide quality tutorials for Secondary School Students.
+                Learn Mathematics, English, Biology, Chemistry, Physics and many more.
+            </p>
+
+            <button onclick="joinNow()">Join Now</button>
+
+        </div>
+
+        <div class="hero-image">
+
+            <img src=".//image/pics 2.jpg" alt="Student">
+        </div>
+
+    </section>
+
+    <section class="subjects" id="subjects">
+
+        <h2>Subjects We Teach</h2>
+
+        <div class="subject-container">
+
+            <div class="subject-card" onclick="window.location.href='pages/subject.html'">
+                <h3>📘 Mathematics</h3>
+                <p>Learn Algebra, Geometry, Trigonometry and more.</p>
+            </div>
+
+            <div class="subject-card" onclick="window.location.href='pages/english.html'">
+
+                <h3>📖 English Language</h3>
+
+                <p>Improve Grammar, Comprehension and Essay Writing.</p>
+
+            </div>
+            <div class="subject-card" onclick="window.location.href='pages/chemistry.html'">
+
+                <h3>🧪 Chemistry</h3>
+
+                <p>Master Organic, Inorganic and Physical Chemistry.</p>
+
+            </div>
+            <div class="subject-card" onclick="window.location.href='pages/biology.html'">
+
+                <h3>🧬 Biology</h3>
+
+                <p>Study Living Organisms, Cells and Genetics.</p>
+
+            </div>
+
+            <div class="subject-card" onclick="window.location.href='pages/physics.html'">
+
+                <h3>⚡ Physics</h3>
+
+                <p>Understand Motion, Electricity and Energy.</p>
+
+            </div>
+            <div class="subject-card" onclick="window.location.href='pages/computer.html'">
+
+                <h3>💻 Computer Studies</h3>
+
+                <p>Learn Computer Basics, Coding and ICT Skills.</p>
+
+            </div>
+        </div>
+
+    </section>
+
+    <section class="notes">
+
+        <h2>📚 Download Lesson Notes</h2>
+
+        <div class="notes-container">
+
+            <div class="note-card">
+
+                <h3>📘 Mathematics</h3>
+
+                <p>Algebra Notes</p>
+
+                <a href="notes/algebra.pdf" download>
+                    Download
+                </a>
+
+            </div>
+
+
+            <div class="note-card">
+
+                <h3>🧬 Biology</h3>
+
+                <p>Cell Structure Notes</p>
+
+                <a href="notes/biology-cells.pdf" download>
+                    Download
+                </a>
+
+            </div>
+
+
+            <div class="note-card">
+
+                <h3>🧪 Chemistry</h3>
+
+                <p>Atoms Notes</p>
+
+                <a href="notes/chemistry-atoms.pdf" download>
+                    Download
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+    <section class="contact" id="contact">
+
+        <h2>📞 Contact Us</h2>
+
+        <p>📱 Phone: 08129210525</p>
+
+        <p>📧 Email: evergreen@gmail.com</p>
+
+        <p>📍 Location: Lagos, Nigeria</p>
+
+        <button onclick="contactUs()">Send Message</button>
+
+    </section>
+
+    </section>
+    <footer>
+
+        <h3>EverGreen Tutor & Consult</h3>
+
+        <p>
+            Quality Learning | Better Future
+        </p>
+
+        <p>
+            © 2026 EverGreen Tutor & Consult. All Rights Reserved.
+        </p>
+
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

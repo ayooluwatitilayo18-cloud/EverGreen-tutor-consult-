@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .dashboard {
+
+            max-width: 1000px;
+
+            margin: 40px auto;
+
+            padding: 30px;
+
+        }
+
+        .cards {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            gap: 20px;
+
+            justify-content: center;
+
+        }
+
+        .card {
+
+            width: 220px;
+
+            background: white;
+
+            padding: 25px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 0 10px lightgray;
+
+            text-align: center;
+
+        }
+
+        .card h3 {
+
+            color: green;
+
+            margin-bottom: 10px;
+
+        }
+
+        .progress {
+
+            width: 100%;
+
+            height: 25px;
+
+            background: #ddd;
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            margin-top: 20px;
+
+        }
+
+        .progress-bar {
+
+            height: 100%;
+
+            width: 0%;
+
+            background: green;
+
+            color: white;
+
+            text-align: center;
+
+            line-height: 25px;
+
+            transition: 1s;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            EverGreen Tutor & Consult
+        </div>
+
+        <ul>
+
+            <li><a href="../index.html">Home</a></li>
+
+            <li><a href="profile.html">Profile</a></li>
+
+            <li><a href="leaderboard.html">Leaderboard</a></li>
+
+            <li><a href="#" onclick="logout()">Logout</a></li>
+
+        </ul>
+
+    </nav>
+
+    <div class="dashboard">
+
+        <h1 id="welcome"></h1>
+
+        <div class="cards">
+
+            <div class="card">
+                <h3>📚 Subjects</h3>
+                <p id="subjects">0 / 3 Completed</p>
+            </div>
+
+            <div class="card">
+                <h3>👤 Student</h3>
+                <p id="studentName">-</p>
+            </div>
+
+            <div class="card">
+                <h3>📧 Email</h3>
+                <p id="studentEmail">-</p>
+            </div>
+
+            <div class="card">
+                <h3>📝 Quizzes</h3>
+                <p id="quizTaken">0</p>
+            </div>
+
+            <div class="card">
+                <h3>🏆 Highest Score</h3>
+                <p id="highestScore">0%</p>
+            </div>
+
+            <div class="card">
+                <h3>🎖️ Badge</h3>
+                <p id="badge">Beginner</p>
+            </div>
+        </div>
+
+
+
+        <h2 style="margin-top:40px;">Learning Progress</h2>
+
+        <div class="progress">
+
+            <div class="progress-bar" id="progressBar">
+
+                0%
+
+            </div>
+
+        </div>
+
+        <h2 style="margin-top:40px;">📋 Recent Quiz Results</h2>
+
+        <div id="recentResults">
+
+            <p>No quiz results yet.</p>
+
+        </div>
+
+
+    </div>
+
+    <script>
+
+        let user = localStorage.getItem("loggedInUser");
+
+        if (!user) {
+            window.location.href = "login.html";
+        }
+
+        document.getElementById("welcome").innerHTML =
+            "👋 Welcome back, " + user;
+
+        document.getElementById("studentName").innerHTML =
+            localStorage.getItem("fullname") || "Student";
+
+        document.getElementById("studentEmail").innerHTML =
+            localStorage.getItem("email") || "No email";
+
+        let quizzes = localStorage.getItem("quizTaken") || 0;
+
+        let score = localStorage.getItem("averageScore") || 0;
+
+        let completedSubjects =
+            Number(localStorage.getItem("completedSubjects")) || 0;
+
+        let learningProgress =
+            Math.min((completedSubjects / 6) * 100, 100);
+
+        document.getElementById("progressBar").style.width =
+            learningProgress + "%";
+
+        document.getElementById("progressBar").innerHTML =
+            Math.round(learningProgress) + "%";
+
+        document.getElementById("quizTaken").innerHTML =
+            quizzes;
+
+
+        document.getElementById("highestScore").innerHTML =
+            score + "%";
+
+        let badge = "Beginner";
+
+        if (score >= 80) {
+            badge = "🏆 Gold Student";
+        }
+        else if (score >= 60) {
+            badge = "🥈 Silver Student";
+        }
+        else if (score >= 50) {
+            badge = "🥉 Bronze Student";
+        }
+
+        document.getElementById("badge").innerHTML = badge;
+
+
+        function logout() {
+
+            localStorage.removeItem("loggedInUser");
+
+            window.location.href = "login.html";
+
+        }
+
+        let results =
+            JSON.parse(localStorage.getItem("quizResults")) || [];
+
+        let recentResults =
+            document.getElementById("recentResults");
+
+        if (results.length > 0) {
+
+            let output = "";
+
+            results.forEach(function (result) {
+
+                output +=
+                    "<div class='card'>" +
+                    "<h3>📚 " + result.subject + "</h3>" +
+                    "<p>Score: " + result.score + "%</p>" +
+                    "<p>" + result.status + "</p>" +
+                    "</div>";
+
+            });
+
+            recentResults.innerHTML = output;
+
+        }
+
+        document.getElementById("subjects").innerHTML =
+            completedSubjects + " / 6 Completed";
+    </script>
+
+</body>
+
+</html>

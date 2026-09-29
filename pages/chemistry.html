@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chemistry | EverGreen Tutor & Consult</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            EverGreen Tutor & Consult
+        </div>
+
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#">Chemistry</a></li>
+        </ul>
+
+    </nav>
+
+    <section class="subjects">
+
+        <h2>🧪 Chemistry</h2>
+
+        <div class="subject-container">
+            <div class="subject-card">
+                <h3>Lesson 1</h3>
+                <p>Introduction to Chemistry</p>
+                <button onclick="lesson1()">Start Lesson</button>
+            </div>
+
+            <div class="subject-card">
+                <h3>Lesson 2</h3>
+                <p>States of Matter</p>
+                <button onclick="lesson2()">Start Lesson</button>
+            </div>
+
+            <div class="subject-card">
+                <h3>Lesson 3</h3>
+                <p>Atoms and Molecules</p>
+                <button onclick="lesson3()">Start Lesson</button>
+            </div>
+
+            <div class="subject-card">
+                <h3>Lesson 4</h3>
+                <p>Periodic Table</p>
+                <button onclick="lesson4()">Start Lesson</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <div id="lessonBox">
+
+        <h2 id="lessonTitle">Choose a Lesson</h2>
+
+        <p id="lessonContent">
+            Click any lesson above to begin.
+        </p>
+
+        <br>
+
+        <button onclick="previousLesson()">⬅ Previous Lesson</button>
+
+        <button onclick="nextLesson()">Next Lesson ➡</button>
+
+        <br><br>
+
+        <button onclick="startChemistryQuiz()">
+            📝 Take Chemistry Quiz
+        </button>
+    </div>
+
+    <script>
+
+        let currentLesson = 1;
+        function showLesson() {
+
+            let title = document.getElementById("lessonTitle");
+            let content = document.getElementById("lessonContent");
+
+            if (currentLesson == 1) {
+
+                title.innerHTML = "🧪 Lesson 1";
+
+                content.innerHTML =
+                    "<b>Introduction to Chemistry</b><br><br>" +
+                    "Chemistry is the study of matter, its properties and the changes it undergoes.";
+
+            }
+
+            else if (currentLesson == 2) {
+
+                title.innerHTML = "🧪 Lesson 2";
+
+                content.innerHTML =
+                    "<b>States of Matter</b><br><br>" +
+                    "Matter exists in three common states: Solid, Liquid and Gas.";
+
+            }
+
+            else if (currentLesson == 3) {
+
+                title.innerHTML = "🧪 Lesson 3";
+
+                content.innerHTML =
+                    "<b>Atoms and Molecules</b><br><br>" +
+                    "An atom is the smallest unit of an element, while molecules are formed when atoms combine.";
+
+            }
+
+            else if (currentLesson == 4) {
+
+                title.innerHTML = "🧪 Lesson 4";
+
+                content.innerHTML =
+                    "<b>Periodic Table</b><br><br>" +
+                    "The periodic table arranges elements according to their atomic numbers and properties.";
+
+            }
+
+        }
+        function lesson1() {
+
+            currentLesson = 1;
+
+            document.getElementById("lessonBox").style.display = "block";
+
+            showLesson();
+
+        }
+
+        function lesson2() {
+
+            currentLesson = 2;
+
+            document.getElementById("lessonBox").style.display = "block";
+
+            showLesson();
+
+        }
+
+        function lesson3() {
+
+            currentLesson = 3;
+
+            document.getElementById("lessonBox").style.display = "block";
+
+            showLesson();
+
+        }
+
+        function lesson4() {
+
+            currentLesson = 4;
+
+            document.getElementById("lessonBox").style.display = "block";
+
+            showLesson();
+
+        }
+
+        function nextLesson() {
+
+            if (currentLesson < 4) {
+
+                currentLesson++;
+
+                showLesson();
+
+            }
+
+        }
+
+        function previousLesson() {
+
+            if (currentLesson > 1) {
+
+                currentLesson--;
+
+                showLesson();
+
+            }
+
+        }
+
+        function startChemistryQuiz() {
+
+            localStorage.setItem("subject", "Chemistry");
+
+            window.location.href = "quiz.html";
+
+        }
+    </script>
+    
+<script src="../js/script.js"></script>
+
+</body>
+
+</html>

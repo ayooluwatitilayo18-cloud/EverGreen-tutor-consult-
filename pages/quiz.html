@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CBT Quiz</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+
+            EverGreen Tutor & Consult
+
+        </div>
+
+        <ul>
+
+            <li><a href="../index.html">Home</a></li>
+
+            <li><a href="dashboard.html">Dashboard</a></li>
+
+            <li><a href="profile.html">Profile</a></li>
+
+        </ul>
+
+    </nav>
+
+    <section class="quiz">
+
+        <h2 id="studentName"></h2>
+
+        <h2 id="subjectTitle"></h2>
+
+        <h2 id="questionNumber">
+            Question 1 of 20
+        </h2>
+
+        <div class="progress">
+            <div id="progressBar"></div>
+        </div>
+        <h3 id="timer"></h3>
+
+        <h3 id="questionText"></h3>
+
+        <div id="answers"></div>
+
+        <hr>
+
+        <h3>Question Palette</h3>
+
+        <div id="questionPalette"></div>
+
+        <br>
+        <br>
+
+        <button onclick="previousQuestion()">
+            ⬅ Previous
+        </button>
+
+        <button id="nextBtn" onclick="nextQuestion()">
+            Next ➡
+        </button>
+
+        <button onclick="finishExam()">
+            ✅ Finish Exam
+        </button>
+        <h2 id="result"></h2>
+
+    </section>
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Login</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #006400, #00b894);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            width: 380px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .25);
+        }
+
+        .login-box h2 {
+            color: #006400;
+            margin-bottom: 30px;
+            font-size: 32px;
+        }
+
+        .login-box input {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 18px;
+            box-sizing: border-box;
+            transition: .3s;
+        }
+
+        .login-box input:focus {
+            border-color: #008000;
+            outline: none;
+        }
+
+        .login-box button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: none;
+            background: #008000;
+            color: white;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: .3s;
+        }
+
+        .login-box button:hover {
+            background: #006400;
+            transform: scale(1.03);
+        }
+
+        .login-box p {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .login-box a {
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .login-box a:hover {
+            text-decoration: underline;
+        }
+
+        #loginMessage {
+
+            position: fixed;
+
+            top: 20px;
+
+            right: 20px;
+
+            background: green;
+
+            color: white;
+
+            padding: 15px 25px;
+
+            border-radius: 10px;
+
+            font-size: 18px;
+
+            display: none;
+
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
+
+            z-index: 1000;
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="loginMessage"></div>
+    <div class="login-box">
+
+        <h2>🎓 Student Login</h2>
+
+        <div style="text-align:center; margin-bottom:20px;">
+
+
+        </div>
+
+        <input type="text" id="username" placeholder="👤 Username">
+
+        <input type="password" id="password" placeholder="🔒 Password">
+
+        <button onclick="login()">Login</button>
+
+        <p>
+            Don't have an account?
+            <a href="register.html">Register</a>
+        </p>
+
+    </div>
+
+    <script>
+
+        function showMessage(text) {
+
+            let msg = document.getElementById("loginMessage");
+
+            msg.innerHTML = text;
+
+            msg.style.display = "block";
+
+            setTimeout(function () {
+
+                msg.style.display = "none";
+
+            }, 3000);
+
+        }
+
+        function login() {
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+
+            let students =
+                JSON.parse(localStorage.getItem("students")) || [];
+
+            console.log(students);
+            let found = false;
+
+            for (let i = 0; i < students.length; i++) {
+
+                if (
+                    students[i].username === username &&
+                    students[i].password === password
+                ) {
+
+                    found = true;
+
+                    localStorage.setItem("loggedInUser", students[i].name);
+                    localStorage.setItem("fullname", students[i].name);
+                    localStorage.setItem("email", students[i].email);
+                    localStorage.setItem("username", students[i].username);
+                    alert("✅ Login Successful!");
+
+                    window.location.href = "../index.html";
+
+                    return;
+
+                }
+
+            }
+
+            if (!found) {
+
+                alert("❌ Invalid Username or Password");
+
+            }
+
+        }
+    </script>
+
+
+</body>
+
+</html>

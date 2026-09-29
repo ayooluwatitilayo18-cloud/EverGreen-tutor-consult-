@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: linear-gradient(135deg, #006400, #00b894);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .register-box {
+            width: 420px;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, .25);
+        }
+
+        .register-box h2 {
+            text-align: center;
+            color: #006400;
+            margin-bottom: 30px;
+        }
+
+        .register-box input {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            font-size: 18px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .register-box input:focus {
+            outline: none;
+            border-color: green;
+        }
+
+        .register-box button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            background: #008000;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .register-box button:hover {
+            background: #006400;
+        }
+
+        .register-box p {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .register-box a {
+            color: green;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="register-box">
+
+        <h2>📝 Student Registration</h2>
+
+        <input type="text" id="fullname" placeholder="Full Name">
+
+        <input type="email" id="email" placeholder="Email Address">
+
+        <input type="text" id="username" placeholder="Username">
+
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="register()">Register</button>
+
+        <p>
+            Already have an account?
+            <a href="login.html">Login</a>
+        </p>
+
+    </div>
+
+    <script>
+
+        function register() {
+
+            let fullname = document.getElementById("fullname").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value;
+
+            if (fullname === "" || email === "" || username === "" || password === "") {
+
+                alert("⚠️ Please fill in all fields.");
+                return;
+
+            }
+
+            // Get existing students
+            let students =
+                JSON.parse(localStorage.getItem("students")) || [];
+
+            // Check for existing username
+            let exists = students.find(function (student) {
+
+                return student.username.toLowerCase() === username.toLowerCase();
+
+            });
+
+            if (exists) {
+
+                alert("❌ Username already exists.");
+                return;
+
+            }
+
+            // Add new student
+            students.push({
+
+                name: fullname,
+                email: email,
+                username: username,
+                password: password
+
+            });
+
+            // Save students
+            localStorage.setItem(
+                "students",
+                JSON.stringify(students)
+            );
+
+            // Also save current user's details
+            localStorage.setItem("fullname", fullname);
+            localStorage.setItem("email", email);
+
+            alert("✅ Registration Successful!");
+
+            window.location.href = "login.html";
+
+        }
+
+    </script>
+
+</body>
+
+</html>

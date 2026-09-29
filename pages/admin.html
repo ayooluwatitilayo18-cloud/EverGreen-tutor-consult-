@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            EverGreen Tutor & Consult
+        </div>
+
+        <button onclick="adminLogout()">
+            Logout
+        </button>
+
+    </nav>
+
+    <div class="admin-dashboard">
+
+        <h1>Admin Dashboard</h1>
+
+        <div class="dashboard-cards">
+
+            <div class="card">
+                <h2 id="students">0</h2>
+                <p>Students</p>
+            </div>
+
+            <div class="card">
+                <h2 id="subjects">6</h2>
+                <p>Subjects</p>
+            </div>
+
+            <div class="card">
+                <h2 id="quizzes">0</h2>
+                <p>Quizzes Taken</p>
+            </div>
+
+            <div class="card">
+                <h2 id="highestScore">0%</h2>
+                <p>Highest Score</p>
+            </div>
+
+        </div>
+
+        <hr>
+
+        <h2>Registered Students</h2>
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Name</th>
+
+                    <th>Email</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="studentTable"></tbody>
+
+        </table>
+        <hr>
+
+        <h2>Add New Question</h2>
+
+        <select id="questionSubject" onchange="displayQuestions()">
+            <option value="Mathematics">Mathematics</option>
+            <option value="English">English</option>
+            <option value="Biology">Biology</option>
+            <option value="Chemistry">Chemistry</option>
+            <option value="Physics">Physics</option>
+            <option value="Computer Studies">Computer Studies</option>
+        </select>
+
+        <br><br>
+        <input type="text" id="question" placeholder="Enter Question">
+
+        <input type="text" id="option1" placeholder="Option A">
+
+        <input type="text" id="option2" placeholder="Option B">
+
+        <input type="text" id="option3" placeholder="Option C">
+
+        <input type="text" id="option4" placeholder="Option D">
+
+        <input type="number" id="correct" placeholder="Correct Answer (0-3)">
+
+        <button onclick="addQuestion()">
+
+            ➕ Add Question
+
+        </button>
+
+        <hr>
+
+        <h2>All Questions</h2>
+
+        <div id="questionList"></div>
+
+    </div>
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>

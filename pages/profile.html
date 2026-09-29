@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Profile</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f4f8f4;
+            margin: 0;
+        }
+
+        .profile {
+            max-width: 900px;
+            margin: 40px auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+        }
+
+        .profile h2 {
+            color: green;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile img {
+            transition: .3s;
+        }
+
+        .profile img:hover {
+            transform: scale(1.08);
+        }
+
+        .profile p {
+            font-size: 20px;
+            padding: 15px;
+            background: #f8f8f8;
+            border-left: 5px solid green;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav>
+
+        <div class="logo">
+            EverGreen Tutor & Consult
+        </div>
+
+        <ul>
+
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="#" onclick="logout()">Logout</a></li>
+
+        </ul>
+
+    </nav>
+
+    <div class="profile">
+
+        <h2>👤 Student Profile</h2>
+
+        <p style="text-align:center;color:#666;">
+            Welcome to your student dashboard. Here you can view and manage your learning information.
+        </p>
+
+        <div style="text-align:center; margin-bottom:20px;">
+
+            <img id="profileImage" src="../image/pics.jpg" style="width:170px;
+            height:170px;
+            border-radius:50%;
+            border:5px solid green;
+            object-fit:cover;
+            box-shadow:0 5px 20px rgba(0,0,0,.2);">
+
+            <input type="file" id="imageInput" accept="image/*" onchange="uploadImage()">
+
+        </div>
+
+        <p><strong>Full Name:</strong> <span id="fullname"></span></p>
+
+        <p><strong>Email:</strong> <span id="email"></span></p>
+
+        <p><strong>Username:</strong> <span id="username"></span></p>
+
+        <h2 style="margin-top:35px;">✏ Edit My Details</h2>
+
+        <input type="text" id="editFullname" placeholder="Enter new full name"
+            style="width:100%; padding:15px; margin:10px 0; font-size:18px;">
+
+        <input type="email" id="editEmail" placeholder="Enter new email address"
+            style="width:100%; padding:15px; margin:10px 0; font-size:18px;">
+
+        <button onclick="saveProfile()">
+            Save Changes
+        </button>
+        <h2 style="margin-top:35px;">🔒 Change Password</h2>
+
+        <input type="password" id="currentPassword" placeholder="Enter current password"
+            style="width:100%; padding:15px; margin:10px 0; font-size:18px;">
+
+        <input type="password" id="newPassword" placeholder="Enter new password"
+            style="width:100%; padding:15px; margin:10px 0; font-size:18px;">
+
+        <button onclick="changePassword()">
+            Change Password
+        </button>
+
+        <button type="button" onclick="togglePasswords()">
+            👁 Show / Hide Passwords
+        </button>
+
+        <div class="student-id">
+
+            <div class="id-header">
+                🌿 EverGreen Tutor & Consult
+            </div>
+
+            <div class="id-body">
+
+                <img id="idProfileImage" src="../image/pics.jpg" alt="Student">
+
+                <h3 id="idName">Student Name</h3>
+
+                <p><strong>Student ID:</strong> <span id="studentId"></span></p>
+
+                <p><strong>Status:</strong> ✅ Verified Student</p>
+
+            </div>
+
+        </div>
+
+        <div class="dashboard">
+
+            <h2>📊 My Progress</h2>
+
+            <p><strong>Subjects Completed:</strong>
+                <span id="completedSubjects"></span>
+            </p>
+
+            <p><strong>Quiz Taken:</strong>
+                <span id="quizTaken"></span>
+            </p>
+
+            <p><strong>Average Score:</strong>
+                <span id="averageScore"></span>
+            </p>
+
+            <h2 style="margin-top:35px;">📈 Learning Progress</h2>
+
+            <div style="
+    width:100%;
+    height:25px;
+    background:#ddd;
+    border-radius:30px;
+    overflow:hidden;
+">
+
+                <div id="profileProgressBar" style="
+        width:0%;
+        height:100%;
+        background:green;
+        color:white;
+        text-align:center;
+        line-height:25px;
+        transition:1s;
+    ">
+                    0%
+
+                    <p id="profileProgressMessage" style="
+    text-align:center;
+    margin-top:15px;
+    font-weight:bold;
+    color:green;
+"></p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="text-align:center; margin-top:30px;">
+
+            <a href="leaderboard.html">
+                <button>🏆 View Leaderboard</button>
+
+
+        </div>
+
+    </div>
+    <script>
+        let loggedInUser =
+            localStorage.getItem("loggedInUser");
+
+        if (!loggedInUser) {
+
+            window.location.href = "login.html";
+
+        }
+
+        document.getElementById("fullname").innerHTML =
+            localStorage.getItem("fullname");
+
+        let studentUsername =
+            localStorage.getItem("username") || "student";
+
+        document.getElementById("studentId").innerHTML =
+            "EGT-" + studentUsername.toUpperCase();
+        document.getElementById("email").innerHTML =
+            localStorage.getItem("email");
+
+        document.getElementById("username").innerHTML =
+            localStorage.getItem("username");
+
+        document.getElementById("editFullname").value =
+            localStorage.getItem("fullname") || "";
+
+        document.getElementById("editEmail").value =
+            localStorage.getItem("email") || "";
+
+        document.getElementById("completedSubjects").innerHTML =
+            localStorage.getItem("completedSubjects") || 0;
+
+        document.getElementById("quizTaken").innerHTML =
+            localStorage.getItem("quizTaken") || 0;
+
+        document.getElementById("averageScore").innerHTML =
+            (localStorage.getItem("averageScore") || 0) + "%";
+        document.getElementById("idName").innerHTML =
+            localStorage.getItem("fullname");
+
+        let completedSubjectCount =
+            Number(localStorage.getItem("completedSubjects")) || 0;
+
+        let profileProgress =
+            Math.min((completedSubjectCount / 6) * 100, 100);
+
+        document.getElementById("profileProgressBar").style.width =
+            profileProgress + "%";
+
+        document.getElementById("profileProgressBar").innerHTML =
+            Math.round(profileProgress) + "%";
+        let savedImage = localStorage.getItem("profileImage");
+
+        if (savedImage) {
+
+            document.getElementById("idProfileImage").src = savedImage;
+
+        }
+        let profileProgressMessage =
+            document.getElementById("profileProgressMessage");
+
+        if (completedSubjectCount === 6) {
+
+            profileProgressMessage.innerHTML =
+                "🎉 Congratulations! You have completed all subjects.";
+
+        }
+
+        else if (completedSubjectCount > 0) {
+
+            profileProgressMessage.innerHTML =
+                "Keep going! You have completed " +
+                completedSubjectCount + " out of 6 subjects.";
+
+        }
+
+        else {
+
+            profileProgressMessage.innerHTML =
+                "Start a subject quiz to begin your learning journey.";
+
+        }
+
+        function saveProfile() {
+
+            let newName =
+                document.getElementById("editFullname").value.trim();
+
+            let newEmail =
+                document.getElementById("editEmail").value.trim();
+
+            if (!newName || !newEmail) {
+
+                alert("Please enter both your full name and email.");
+
+                return;
+
+            }
+
+            localStorage.setItem("fullname", newName);
+            localStorage.setItem("loggedInUser", newName);
+            localStorage.setItem("email", newEmail);
+
+            document.getElementById("fullname").innerHTML = newName;
+            document.getElementById("email").innerHTML = newEmail;
+            document.getElementById("idName").innerHTML = newName;
+
+            let students =
+                JSON.parse(localStorage.getItem("students")) || [];
+
+            let currentUsername =
+                localStorage.getItem("username");
+
+            let currentStudent = students.find(function (student) {
+
+                return student.username === currentUsername;
+
+            });
+
+            if (currentStudent) {
+
+                currentStudent.name = newName;
+
+                currentStudent.email = newEmail;
+
+                localStorage.setItem(
+                    "students",
+                    JSON.stringify(students)
+                );
+
+            }
+
+            document.getElementById("editFullname").value = "";
+            document.getElementById("editEmail").value = "";
+
+            alert("✅ Profile updated successfully!");
+
+        }
+
+        function togglePasswords() {
+
+            let currentPassword =
+                document.getElementById("currentPassword");
+
+            let newPassword =
+                document.getElementById("newPassword");
+
+            let inputType =
+                currentPassword.type === "password"
+                    ? "text"
+                    : "password";
+
+            currentPassword.type = inputType;
+
+            newPassword.type = inputType;
+
+        }
+        function changePassword() {
+
+            let currentPassword =
+                document.getElementById("currentPassword").value;
+
+            let newPassword =
+                document.getElementById("newPassword").value;
+
+            let username =
+                localStorage.getItem("username");
+
+            let students =
+                JSON.parse(localStorage.getItem("students")) || [];
+
+            let student = students.find(function (item) {
+
+                return item.username === username;
+
+            });
+
+            if (!student || student.password !== currentPassword) {
+
+                alert("❌ Your current password is incorrect.");
+
+                return;
+
+            }
+
+            if (newPassword.length < 4) {
+
+                alert("❌ Your new password must contain at least 4 characters.");
+
+                return;
+
+            }
+
+            student.password = newPassword;
+
+            localStorage.setItem(
+                "students",
+                JSON.stringify(students)
+            );
+
+            document.getElementById("currentPassword").value = "";
+            document.getElementById("newPassword").value = "";
+
+            alert("✅ Password changed successfully!");
+
+        }
+
+        function logout() {
+
+            localStorage.removeItem("loggedInUser");
+
+            window.location.href = "login.html";
+
+        }
+
+        
+    </script>
+
+    <script src="../js/script.js"></script>
+
+</body>
+
+</html>
